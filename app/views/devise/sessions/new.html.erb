@@ -1,0 +1,40 @@
+<%= render "home/nav" %>
+<div class="container" style="margin-top: 120px">
+  <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+      <div class="panel panel-success">
+          <div class="panel-heading" style="background-color: #9A6C46;">
+              <div class="panel-title">해커몬에 오신 걸 환영합니다!</div>
+          </div>
+          <div class="panel-body">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div>
+                <%= f.email_field :email, autofocus: true, class: "form-control" %>
+              </div>
+            
+              <div>
+                <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+              </div>
+            
+              <% if devise_mapping.rememberable? -%>
+                <div>
+                  
+                  <label><%= f.check_box :remember_me %> 기억하시겠습니까?</label>
+                </div>
+              <% end -%>
+            
+              <div class="actions">
+                <%= f.submit "로그인", class: "form-control btn btn-primary"%>
+              </div>
+              <div class="actions">
+                <%= render "devise/shared/links" %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+

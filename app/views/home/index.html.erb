@@ -1,0 +1,67 @@
+<%= render "nav" %>
+    <!--<div id="intro">
+        <div id="r1"></div>
+        <div id="r2"></div>
+        <div id="r3"></div>
+    </div>-->
+<div id="wrap">
+    <div id="card">
+        <img src="/assets/<%=current_user.main_job.job.img%>.png">
+        <div style="position: absolute;top: 680px; left: 430px; color: black;">
+            <h3><%=current_user.username%></h3>
+            <h3><%=current_user.main_job.job.name%> LV <%=current_user.main_job.level%></h3>
+        </div>
+    </div>
+</div>
+
+<div id="wrap2">
+    <div id="list">
+        <% @events.each do |event| %>
+            <div id="list_img<%=event.id%>">
+                <span><%=event.name%></span>
+                <img src="assets/list.png">
+                <input id="btn<%=event.id+event.id-1%>" type="image" src="assets/btn_help.png" data-toggle="modal" data-target="#myModal<%=event.id%>">
+                <input id="btn<%=event.id+event.id%>" type="image" src="assets/btn_check.png" onclick="location.href='/home/teamlist/<%=event.id%>'">
+            </div>
+        <% end %>
+    </div>
+</div>
+
+<!-- Modal -->
+<% @events.each do |event| %>
+<div class="modal fade" id="myModal<%= event.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h1 class="modal-title" id="myModalLabel"><%=event.name%></h1>
+      </div>
+      <div class="modal-body">
+        <div class="thumbnail">
+          	<a href="<%=event.link%>" target="_blank"><img id="test" src="assets/hackerthon<%=event.id%>.png"></a>
+        </div>
+      	<hr>
+      	<div class="row">
+       	    <div class="col-md-2"><h4>임무</h4></div>
+      	    <div class="col-md-10"><h4><%=event.s_date%>-<%=event.e_date%> 기간 내에 아이디어를 구현하라.</h4></div> 
+      	</div>
+
+      	<hr>
+      	<div class="row">
+      	    <div class="col-md-2"><h4>보상</h4></div>
+          	<div class="col-md-10"><h4>
+          	    <%event.reward.each do |r|%>
+          	        <%=r%>
+          	        <br>
+          	    <% end %>
+          	</h4></div>
+      	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">참가하기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,87 @@
+    <%= render "nav"%>
+    <div id="filterPart">
+        <input type="image" src="/assets/btn_leader.png" id="btn_p">
+        <input type="image" src="/assets/btn_developer.png" id="btn_d">
+        <input type="image" src="/assets/btn_deginer.png" id="btn_e">
+    </div>
+
+    <div id="container">
+        <% @teams.each do |team| %>
+            <div class="item" id="l<%=team.id%>">
+            <div style="font-family: 'Jeju Gothic'; padding: 25px;">
+                <div id="teamroom">
+                    <div id="onTop" class="row" style="text-align: center; height: 30px; margin-bottom: 50px; ">
+                        <div class="col-sm-9"><h3 style="margin-top: 30px;font-size: 1.4em"><b><%=team.name%></b></h3>
+                        </div>
+                        <div class ="col-sm-1" style="margin-top: 20px;">
+                            <button style="box-shadow: 2px 2px #555;" class="btn btn-default"> 아이디어 문의</button>
+                        </div>
+                    </div>
+                    <div id="moreinfo" class="row" style="border: 1px solid; margin-bottom: 30px;">
+                        <div style="text-align: center;"><h4>
+                            <%=team.idea.html_safe%>
+                        </h4></div>
+                    </div>
+                    <div id="slots" class="row" style="text-align: center;">
+                        <div class="slot col-xs-4 col-sm-4 col-md-4" onclick="location.href='/home/join/<%=team.id%>/2'">
+                            <% if TeamJob.find_by(team_id: team.id, job_id: Job.find_by(img: :planner).id, leader: true) %>
+                                <img src="/assets/planner.jpg" style="width: 144px; margin-top: 30px;">
+                                <h5 style="font-size: 1.3em;"><%=TeamJob.find_by(team_id: team.id, job_id: Job.find_by(img: :planner).id, leader: true).user.username%></h5>
+                            <% else %>
+                                <img src="/assets/thinker.PNG">
+                                <h5 style="font-size: 1.3em;">기획자</h5>
+                            <% end %>
+                        </div>
+                        <div class="slot col-xs-4 col-sm-4 col-md-4" onclick="location.href='/home/join/<%=team.id%>/1'">
+                            <% if TeamJob.find_by(team_id: team.id, job_id: Job.find_by(img: :developer).id, leader: true) %>
+                                <img src="/assets/developer.jpg" style="width: 144px; margin-top: 30px;">
+                                <h5 style="font-size: 1.3em;"><%=TeamJob.find_by(team_id: team.id, job_id: Job.find_by(img: :developer).id, leader: true).user.username%></h5>
+                            <% else %>
+                                <img src="/assets/developer.PNG">
+                                <h5 style="font-size: 1.3em;">개발자</h5>
+                            <% end %>
+                        </div>
+                        <div class="slot col-xs-4 col-sm-4 col-md-4">
+                            <img src="/assets/developer.PNG">
+                            <h5 style=" font-size: 1.3em;">개발자</h5>
+                        </div>
+                        <div class="slot col-xs-4 col-sm-4 col-md-4" onclick="location.href='/home/join/<%=team.id%>/3'">
+                            <% if TeamJob.find_by(team_id: team.id, job_id: Job.find_by(img: :designer).id, leader: true) %>
+                                <img src="/assets/designer.jpg" style="width: 144px; margin-top: 30px;">
+                                <h5 style="font-size: 1.3em;"><%=TeamJob.find_by(team_id: team.id, job_id: Job.find_by(img: :designer).id, leader: true).user.username%></h5>
+                            <% else %>
+                                <img src="/assets/designer.PNG">
+                                <h5 style="font-size: 1.3em;">디자이너</h5>
+                            <% end %>
+                        </div>
+                    </div>
+                    <div id="buttons" class="row" style="margin-bottom: 10px;text-align: right;">
+                        <div class="col-sm-6 col-md-8 col-xs-6"></div>
+                        <div class="button col-sm-3 col-md-2 col-xs-3">
+                            <button class="btn btn-success">
+                                나가기
+                            </button>
+                        </div>
+                        <!--<div class="button col-sm-3 col-md-2 col-xs-3">-->
+                        <!--    <button class="btn btn-warning">-->
+                        <!--        나가기-->
+                        <!--    </button>-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% end %>
+    </div>
+      <script>
+        var container = document.querySelector( '#container' );
+        var msnry = new Masonry( container, {
+            // options
+            columnWidth: 600,
+            itemSelector: '.item',
+        });
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
